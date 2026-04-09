@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayub Mahdi — Designer & Concept Artist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --white: #fafaf8; --off: #f3f1ec; --light: #e6e3db;
+  --mid: #a8a39a; --ink: #111110; --dark: #1a1916;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; cursor: none; }
+
+/* CURSOR */
+#cur { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; width: 40px; height: 40px; transform: translate(-50%,-50%); }
+#cur img { width: 100%; height: 100%; object-fit: contain; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 300; display: flex; align-items: center; justify-content: space-between; padding: 20px 52px; background: rgba(250,250,248,.93); backdrop-filter: blur(16px); border-bottom: .5px solid var(--light); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; letter-spacing: .04em; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; gap: 40px; list-style: none; }
+.nav-links a { font-size: 12px; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+
+/* HERO */
+#hero { min-height: 100vh; background: var(--dark); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 140px 8vw 80px; }
+.wave-r { position: absolute; right: -2%; top: -5%; width: 58%; height: 110%; object-fit: cover; object-position: left center; mix-blend-mode: screen; opacity: .9; pointer-events: none; }
+.wave-l { position: absolute; left: -1%; bottom: -10%; width: 40%; height: 70%; object-fit: cover; object-position: right top; mix-blend-mode: screen; opacity: .6; pointer-events: none; }
+.cursor-deco { position: absolute; right: 42%; top: 38%; width: 72px; height: 72px; object-fit: contain; opacity: .85; pointer-events: none; animation: floatY 4s ease-in-out infinite; }
+.cursor-deco2 { position: absolute; left: 32%; bottom: 18%; width: 48px; height: 48px; object-fit: contain; opacity: .55; pointer-events: none; animation: floatY 5.5s ease-in-out infinite reverse; }
+.hero-eyebrow { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 18px; opacity: 0; animation: fadeUp .8s .2s forwards; }
+.hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(80px, 11vw, 148px); font-weight: 300; line-height: .88; color: var(--white); letter-spacing: -.02em; opacity: 0; animation: fadeUp .9s .4s forwards; position: relative; z-index: 2; }
+.hero-tagline-img { margin-top: 28px; width: min(660px, 88vw); opacity: 0; animation: fadeUp .9s .6s forwards; position: relative; z-index: 2; }
+.hero-tagline-img img { width: 100%; height: auto; display: block; }
+.hero-desc { margin-top: 22px; font-size: 15px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,.45); max-width: 380px; opacity: 0; animation: fadeUp .9s .8s forwards; position: relative; z-index: 2; }
+.hero-btn { margin-top: 36px; display: inline-flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--white); text-decoration: none; border: .5px solid rgba(255,255,255,.25); border-radius: 1px; padding: 12px 28px; opacity: 0; animation: fadeUp .9s 1s forwards; position: relative; z-index: 2; transition: background .2s, border-color .2s; width: fit-content; }
+.hero-btn:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.5); }
+.scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.2); z-index: 2; animation: pulse 2.5s infinite; }
+
+/* ABOUT */
+#about { display: grid; grid-template-columns: 1fr 1fr; min-height: 56vh; }
+.about-copy { padding: 80px 7vw; display: flex; flex-direction: column; justify-content: center; border-right: .5px solid var(--light); }
+.label { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--mid); margin-bottom: 26px; }
+.about-copy h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 3.6vw, 50px); font-weight: 300; line-height: 1.15; color: var(--ink); margin-bottom: 22px; }
+.about-copy p { font-size: 15px; line-height: 1.8; color: #666660; max-width: 420px; }
+.about-img { position: relative; overflow: hidden; background: var(--dark); min-height: 360px; }
+.about-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; mix-blend-mode: luminosity; opacity: .8; }
+.about-img::after { content: ''; position: absolute; bottom: 0; right: 0; width: 50%; height: 55%; background: url('WAVE2.png') center/cover no-repeat; mix-blend-mode: screen; opacity: .5; pointer-events: none; }
+
+/* PORTFOLIO */
+#portfolio { background: var(--off); padding: 96px 8vw; }
+.port-header { display: flex; align-items: baseline; justify-content: space-between; border-bottom: .5px solid var(--light); padding-bottom: 20px; margin-bottom: 56px; }
+.port-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 5vw, 62px); font-weight: 300; letter-spacing: -.01em; }
+.port-count { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--mid); }
+.case-studies { display: flex; flex-direction: column; gap: 2px; }
+
+.case-card { background: var(--white); border: .5px solid var(--light); display: grid; grid-template-columns: 1fr 1fr; min-height: 460px; overflow: hidden; position: relative; transition: box-shadow .3s; cursor: pointer; }
+.case-card:hover { box-shadow: 0 12px 48px rgba(0,0,0,.08); }
+.case-card.flip .case-img { order: 2; }
+.case-card.flip .case-copy { order: 1; }
+.case-img { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.case-img img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .6s ease; }
+.case-card:hover .case-img img { transform: scale(1.04); }
+.case-img::after { content: ''; position: absolute; top: 0; right: 0; width: 40%; height: 40%; background: url('wave1.png') right top/cover no-repeat; mix-blend-mode: screen; opacity: .4; pointer-events: none; }
+.case-copy { padding: 56px 52px; display: flex; flex-direction: column; justify-content: center; }
+.case-num { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--mid); letter-spacing: .1em; margin-bottom: 8px; }
+.case-tag { display: inline-block; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; border: .5px solid var(--light); color: var(--mid); padding: 4px 10px; border-radius: 2px; margin-bottom: 20px; width: fit-content; }
+.case-copy h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3vw, 44px); font-weight: 400; line-height: 1.05; color: var(--ink); margin-bottom: 16px; }
+.case-copy p { font-size: 14px; line-height: 1.75; color: #777770; max-width: 380px; margin-bottom: 24px; }
+.case-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
+.chip { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; background: var(--off); color: var(--mid); padding: 3px 9px; border-radius: 1px; }
+.view-link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); border-bottom: .5px solid var(--ink); padding-bottom: 2px; width: fit-content; transition: opacity .2s; }
+.view-link:hover { opacity: .45; }
+.bg-mint { background: #edf7f4; }
+.bg-ink  { background: #0e0c10; }
+.bg-steel{ background: #0a0b10; }
+
+/* DARK STRIP */
+.dark-strip { background: var(--dark); position: relative; overflow: hidden; padding: 72px 0; display: flex; align-items: center; justify-content: center; }
+.ds-wave1 { position: absolute; right: 0; top: 0; width: 50%; height: 100%; object-fit: cover; mix-blend-mode: screen; opacity: .5; pointer-events: none; }
+.ds-wave2 { position: absolute; left: 0; bottom: 0; width: 40%; height: 100%; object-fit: cover; object-position: right; mix-blend-mode: screen; opacity: .4; pointer-events: none; }
+.ds-cursors { position: absolute; top: 16px; left: 28%; display: flex; gap: 44px; pointer-events: none; }
+.ds-cursors img { width: 56px; height: 56px; object-fit: contain; opacity: .75; }
+.ds-content { position: relative; z-index: 2; text-align: center; }
+.ds-content img { max-width: min(720px, 88vw); height: auto; }
+
+/* CONNECT */
+#connect { background: var(--dark); padding: 100px 8vw 56px; position: relative; overflow: hidden; }
+.conn-wave-r { position: absolute; right: 0; top: 0; width: 48%; height: 100%; object-fit: cover; object-position: left; mix-blend-mode: screen; opacity: .45; pointer-events: none; }
+.conn-wave-l { position: absolute; left: 0; bottom: 0; width: 32%; height: 60%; object-fit: cover; object-position: right; mix-blend-mode: screen; opacity: .3; pointer-events: none; }
+.conn-cursor { position: absolute; top: 60px; right: 44%; width: 60px; height: 60px; object-fit: contain; opacity: .6; pointer-events: none; animation: floatY 4.5s ease-in-out infinite; }
+.conn-grid { display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: end; position: relative; z-index: 2; }
+.conn-left .label { color: rgba(255,255,255,.22); }
+.conn-left h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 8vw, 104px); font-weight: 300; line-height: .9; color: var(--white); letter-spacing: -.02em; margin-bottom: 44px; }
+.conn-rows { display: flex; flex-direction: column; }
+.conn-row { display: flex; align-items: center; gap: 16px; text-decoration: none; padding: 14px 0; border-bottom: .5px solid rgba(255,255,255,.07); transition: opacity .2s; }
+.conn-row:hover { opacity: .55; }
+.conn-row-lbl { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: rgba(255,255,255,.22); min-width: 68px; }
+.conn-row-val { font-size: 14px; color: rgba(255,255,255,.5); letter-spacing: .02em; }
+.conn-photo-wrap { position: relative; }
+.conn-photo-wrap::before { content: ''; position: absolute; inset: -16px; background: url('wave1.png') center/cover no-repeat; mix-blend-mode: screen; opacity: .28; border-radius: 4px; z-index: 0; }
+.conn-photo { width: 190px; height: 250px; object-fit: cover; object-position: center 10%; border-radius: 2px; filter: grayscale(15%); border: .5px solid rgba(255,255,255,.1); display: block; position: relative; z-index: 1; }
+.foot { border-top: .5px solid rgba(255,255,255,.07); margin-top: 72px; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2; }
+.foot span { font-size: 12px; color: rgba(255,255,255,.18); letter-spacing: .06em; }
+
+/* ── CASE STUDY MODAL ── */
+.modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(15,14,12,.96); overflow-y: auto; opacity: 0; pointer-events: none; transition: opacity .35s ease; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-inner { max-width: 1100px; margin: 0 auto; padding: 80px 6vw 120px; }
+.modal-close { position: fixed; top: 28px; right: 36px; z-index: 600; background: none; border: .5px solid rgba(255,255,255,.2); color: rgba(255,255,255,.6); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; padding: 8px 18px; cursor: none; border-radius: 1px; transition: background .2s, color .2s; font-family: 'DM Sans', sans-serif; }
+.modal-close:hover { background: rgba(255,255,255,.08); color: var(--white); }
+.modal-label { font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 16px; }
+.modal-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 7vw, 88px); font-weight: 300; line-height: .9; color: var(--white); letter-spacing: -.02em; margin-bottom: 32px; }
+.modal-desc { font-size: 16px; line-height: 1.8; color: rgba(255,255,255,.5); max-width: 620px; margin-bottom: 48px; }
+.modal-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 64px; }
+.modal-chip { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; border: .5px solid rgba(255,255,255,.15); color: rgba(255,255,255,.4); padding: 4px 12px; border-radius: 1px; }
+
+/* GALLERY GRID */
+.gallery-grid { columns: 3; column-gap: 8px; }
+.gallery-grid img { width: 100%; display: block; margin-bottom: 8px; border-radius: 1px; break-inside: avoid; transition: opacity .2s, transform .2s; cursor: zoom-in; }
+.gallery-grid img:hover { opacity: .88; transform: scale(1.01); }
+
+/* Lightbox */
+.lightbox { position: fixed; inset: 0; z-index: 700; background: rgba(0,0,0,.95); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s; }
+.lightbox.open { opacity: 1; pointer-events: all; }
+.lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px; }
+.lb-close { position: fixed; top: 24px; right: 32px; background: none; border: none; color: rgba(255,255,255,.5); font-size: 28px; cursor: none; transition: color .2s; }
+.lb-close:hover { color: var(--white); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%,100% { opacity: .2; } 50% { opacity: .6; } }
+@keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: .1s; } .d2 { transition-delay: .22s; }
+
+@media(max-width:860px){
+  nav { padding: 16px 22px; } .nav-links { gap: 18px; }
+  #about { grid-template-columns: 1fr; }
+  .about-copy { border-right: none; border-bottom: .5px solid var(--light); padding: 52px 24px; }
+  .about-img { min-height: 280px; }
+  #portfolio { padding: 56px 22px; }
+  .case-card, .case-card.flip { grid-template-columns: 1fr; min-height: auto; }
+  .case-card.flip .case-img, .case-card.flip .case-copy { order: unset; }
+  .case-img { min-height: 240px; }
+  .case-copy { padding: 36px 28px; }
+  #connect { padding: 60px 22px 40px; }
+  .conn-grid { grid-template-columns: 1fr; }
+  .gallery-grid { columns: 2; }
+  .modal-close { top: 16px; right: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div id="cur"><img src="cursor1.png" alt=""></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lb-close">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<!-- CASE STUDY MODALS -->
+
+<!-- Modal: StepOut -->
+<div class="modal-overlay" id="modal-stepout">
+  <button class="modal-close" onclick="closeModal('stepout')">← Back</button>
+  <div class="modal-inner">
+    <p class="modal-label">01 — UI/UX Design · Capstone</p>
+    <h1 class="modal-title">StepOut</h1>
+    <p class="modal-desc">A wellness app designed to help users reclaim their day, one step at a time — balancing outdoor and indoor life through personalised goals, analytics, and daily task systems. Built as my capstone project, StepOut merges functional UX architecture with a calm, nature-inspired visual language.</p>
+    <div class="modal-chips">
+      <span class="modal-chip">Interaction Design</span><span class="modal-chip">User Research</span>
+      <span class="modal-chip">Figma</span><span class="modal-chip">System Design</span>
+      <span class="modal-chip">Prototyping</span><span class="modal-chip">Usability Testing</span>
+    </div>
+    <div class="gallery-grid">
+      <img src="stepout-hero.png" alt="StepOut overview" onclick="openLightbox(this.src)">
+      <img src="stepout-screens.png" alt="Onboarding screens" onclick="openLightbox(this.src)">
+      <img src="stepout-home.png" alt="Home & lock screen" onclick="openLightbox(this.src)">
+      <img src="stepout-analytics.png" alt="Analytics, Goals, Daily Log" onclick="openLightbox(this.src)">
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Concept Art -->
+<div class="modal-overlay" id="modal-concept">
+  <button class="modal-close" onclick="closeModal('concept')">← Back</button>
+  <div class="modal-inner">
+    <p class="modal-label">02 — Concept Art & Illustration</p>
+    <h1 class="modal-title">Character Design</h1>
+    <p class="modal-desc">A collection of original character designs and concept illustrations spanning fantasy, sci-fi, manga, and anime aesthetics — exploring narrative, form, emotion, and world-building through bold visual storytelling. Includes full-colour illustrations, character studies, sketch sheets, and manga-style linework.</p>
+    <div class="modal-chips">
+      <span class="modal-chip">Illustration</span><span class="modal-chip">Character Design</span>
+      <span class="modal-chip">World Building</span><span class="modal-chip">Digital Painting</span>
+      <span class="modal-chip">Manga / Linework</span><span class="modal-chip">Colour Theory</span>
+    </div>
+    <div class="gallery-grid">
+      <img src="art-sep.png"   alt="Water warrior" onclick="openLightbox(this.src)">
+      <img src="art-P64.png"   alt="Crystal mage collab" onclick="openLightbox(this.src)">
+      <img src="art-p75.png"   alt="Peacock character" onclick="openLightbox(this.src)">
+      <img src="art-p74.png"   alt="Vampire with wine" onclick="openLightbox(this.src)">
+      <img src="art-aug.png"   alt="Demon fighter" onclick="openLightbox(this.src)">
+      <img src="art-feb.png"   alt="Energy fighter" onclick="openLightbox(this.src)">
+      <img src="art-p83.png"   alt="Pirate swordswoman" onclick="openLightbox(this.src)">
+      <img src="art-p79.png"   alt="Purple maid" onclick="openLightbox(this.src)">
+      <img src="art-p72.png"   alt="Pink hair portrait" onclick="openLightbox(this.src)">
+      <img src="art-p69.png"   alt="Dark elf portrait" onclick="openLightbox(this.src)">
+      <img src="art-P68.png"   alt="Blue character profile" onclick="openLightbox(this.src)">
+      <img src="art-P66.png"   alt="White hair portrait" onclick="openLightbox(this.src)">
+      <img src="art-dec.png"   alt="Purple feather character" onclick="openLightbox(this.src)">
+      <img src="art-may.png"   alt="Hairstylist character" onclick="openLightbox(this.src)">
+      <img src="art-feb2.png"  alt="Horned villain" onclick="openLightbox(this.src)">
+      <img src="art-P29.png"   alt="Character sketches" onclick="openLightbox(this.src)">
+      <img src="art-P35.png"   alt="Head studies" onclick="openLightbox(this.src)">
+      <img src="art-P37.png"   alt="Action figure sketches" onclick="openLightbox(this.src)">
+      <img src="art-P49.png"   alt="Ink sketch" onclick="openLightbox(this.src)">
+      <img src="art-p77.png"   alt="Character study" onclick="openLightbox(this.src)">
+      <img src="art-manga1.png" alt="Manga panel" onclick="openLightbox(this.src)">
+      <img src="art-manga2.jpg" alt="Manga linework" onclick="openLightbox(this.src)">
+      <img src="art-sep.png"   alt="9 Sep" onclick="openLightbox(this.src)">
+    </div>
+  </div>
+</div>
+
+<!-- Modal: 3D Backgrounds -->
+<div class="modal-overlay" id="modal-3d">
+  <button class="modal-close" onclick="closeModal('3d')">← Back</button>
+  <div class="modal-inner">
+    <p class="modal-label">03 — 3D / Motion Design</p>
+    <h1 class="modal-title">3D Backgrounds</h1>
+    <p class="modal-desc">Iridescent 3D environments and animated backgrounds crafted for digital platforms — exploring light, material, and motion to create immersive visual atmospheres with depth and energy. These assets were created for portfolio and branding use, including the wave and cursor elements throughout this site.</p>
+    <div class="modal-chips">
+      <span class="modal-chip">Blender</span><span class="modal-chip">Motion Design</span>
+      <span class="modal-chip">3D Art</span><span class="modal-chip">Iridescent Materials</span>
+      <span class="modal-chip">Loop Animation</span>
+    </div>
+    <div class="gallery-grid">
+      <img src="wave1.png" alt="Iridescent wave right" onclick="openLightbox(this.src)">
+      <img src="WAVE2.png" alt="Iridescent wave left" onclick="openLightbox(this.src)">
+      <img src="cursor1.png" alt="3D cursor arrow 1" onclick="openLightbox(this.src)">
+      <img src="cursor.png" alt="3D cursor arrow 2" onclick="openLightbox(this.src)">
+      <img src="TEXTs.png" alt="3D iridescent text" onclick="openLightbox(this.src)">
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Ayub Mahdi</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#connect">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <img class="wave-r" src="wave1.png" alt="">
+  <img class="wave-l" src="WAVE2.png" alt="">
+  <img class="cursor-deco" src="cursor1.png" alt="">
+  <img class="cursor-deco2" src="cursor.png" alt="">
+  <p class="hero-eyebrow">UI/UX Designer &amp; Concept Artist — Toronto, ON</p>
+  <h1 class="hero-name">Ayub<br>Mahdi</h1>
+  <div class="hero-tagline-img"><img src="TEXTs.png" alt="Design Intentionally, Create Ambitiously"></div>
+  <p class="hero-desc">Animator and designer who brings ideas to life through motion, storytelling, and bold visuals — creating engaging content for today's digital platforms.</p>
+  <a href="#portfolio" class="hero-btn">View Work →</a>
+  <span class="scroll-hint">Scroll</span>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-copy">
+    <p class="label">About</p>
+    <h2 class="reveal">UI/UX designer<br><em>&amp; concept artist.</em></h2>
+    <p class="reveal d1">I blend storytelling with functional design systems — from character design to complete app experiences. I work at the intersection of art and interface, creating work that is both beautiful and purposeful.</p>
+  </div>
+  <div class="about-img"><img src="ayub-photo.jpg" alt="Ayub Mahdi"></div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="port-header">
+    <h2 class="reveal">Selected Work</h2>
+    <span class="port-count">03 Projects</span>
+  </div>
+  <div class="case-studies">
+
+    <!-- StepOut -->
+    <div class="case-card reveal" onclick="openModal('stepout')">
+      <div class="case-img bg-mint">
+        <img src="stepout-hero.png" alt="StepOut">
+      </div>
+      <div class="case-copy">
+        <span class="case-num">01</span>
+        <span class="case-tag">UI/UX Design — Capstone</span>
+        <h3>StepOut</h3>
+        <p>A wellness app to help users reclaim their day — balancing outdoor and indoor life through personalised goals, analytics, and daily task systems.</p>
+        <div class="case-chips">
+          <span class="chip">Interaction Design</span><span class="chip">User Research</span>
+          <span class="chip">Figma</span><span class="chip">System Design</span>
+        </div>
+        <span class="view-link">View Case Study →</span>
+      </div>
+    </div>
+
+    <!-- Concept Art -->
+    <div class="case-card flip reveal d1" onclick="openModal('concept')">
+      <div class="case-img bg-ink">
+        <img src="art-sep.png" alt="Character Design — Water Warrior" style="object-fit:cover; object-position: center top;">
+      </div>
+      <div class="case-copy">
+        <span class="case-num">02</span>
+        <span class="case-tag">Concept Art &amp; Illustration</span>
+        <h3>Character Design</h3>
+        <p>Original character designs and illustrations spanning fantasy, sci-fi, and anime aesthetics — exploring narrative, form, and emotion through bold visual storytelling.</p>
+        <div class="case-chips">
+          <span class="chip">Illustration</span><span class="chip">Character Design</span>
+          <span class="chip">World Building</span><span class="chip">Digital Art</span>
+        </div>
+        <span class="view-link">View Case Study →</span>
+      </div>
+    </div>
+
+    <!-- 3D Backgrounds -->
+    <div class="case-card reveal d2" onclick="openModal('3d')">
+      <div class="case-img bg-steel" style="overflow:hidden; position:relative;">
+        <img src="wave1.png" alt="3D Backgrounds" style="width:100%; height:100%; object-fit:cover; mix-blend-mode:screen; opacity:.9; position:absolute; inset:0;">
+        <img src="WAVE2.png" alt="" style="width:70%; height:80%; object-fit:cover; mix-blend-mode:screen; opacity:.7; position:absolute; left:0; bottom:0;">
+        <img src="cursor1.png" alt="" style="width:80px; height:80px; object-fit:contain; position:absolute; right:22%; top:30%; opacity:.9; animation: floatY 3.5s ease-in-out infinite;">
+      </div>
+      <div class="case-copy">
+        <span class="case-num">03</span>
+        <span class="case-tag">3D / Motion Design</span>
+        <h3>3D Backgrounds</h3>
+        <p>Iridescent 3D environments and animated backgrounds — exploring light, material, and motion to create immersive visual atmospheres with depth and energy.</p>
+        <div class="case-chips">
+          <span class="chip">Blender</span><span class="chip">Motion Design</span>
+          <span class="chip">3D Art</span><span class="chip">Iridescent</span>
+        </div>
+        <span class="view-link">View Case Study →</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DARK STRIP -->
+<div class="dark-strip">
+  <img class="ds-wave1" src="wave1.png" alt="">
+  <img class="ds-wave2" src="WAVE2.png" alt="">
+  <div class="ds-cursors">
+    <img src="cursor1.png" alt="" style="animation: floatY 3.5s ease-in-out infinite;">
+    <img src="cursor.png" alt="" style="animation: floatY 4.8s ease-in-out infinite reverse; margin-top:22px; width:42px; height:42px;">
+  </div>
+  <div class="ds-content reveal"><img src="TEXTs.png" alt="Design Intentionally, Create Ambitiously"></div>
+</div>
+
+<!-- CONNECT -->
+<section id="connect">
+  <img class="conn-wave-r" src="wave1.png" alt="">
+  <img class="conn-wave-l" src="WAVE2.png" alt="">
+  <img class="conn-cursor" src="cursor1.png" alt="">
+  <div class="conn-grid">
+    <div class="conn-left">
+      <p class="label">Let's Connect</p>
+      <h2>Let's<br>work<br>together.</h2>
+      <div class="conn-rows">
+        <a href="mailto:ayub.mahdi2004@gmail.com" class="conn-row"><span class="conn-row-lbl">Email</span><span class="conn-row-val">ayub.mahdi2004@gmail.com</span></a>
+        <a href="#" class="conn-row"><span class="conn-row-lbl">LinkedIn</span><span class="conn-row-val">linkedin.com/in/ayub-mahdi</span></a>
+        <a href="#" class="conn-row"><span class="conn-row-lbl">Instagram</span><span class="conn-row-val">@ayubmahdi</span></a>
+        <a href="tel:6478067481" class="conn-row"><span class="conn-row-lbl">Phone</span><span class="conn-row-val">647 806 7481</span></a>
+      </div>
+    </div>
+    <div class="conn-photo-wrap">
+      <img class="conn-photo" src="ayub-photo.jpg" alt="Ayub Mahdi">
+    </div>
+  </div>
+  <div class="foot">
+    <span>© 2026 Ayub Mahdi</span>
+    <span>Toronto, ON</span>
+    <span>Design Intentionally, Create Ambitiously</span>
+  </div>
+</section>
+
+<script>
+// cursor
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+
+// scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// modals
+function openModal(id) {
+  const m = document.getElementById('modal-' + id);
+  m.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('keydown', e => { if(e.key === 'Escape') m.classList.remove('open'); });
+});
+
+// lightbox
+function openLightbox(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+document.getElementById('lb-close').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if(e.target === e.currentTarget) {
+    e.currentTarget.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+</script>
+</body>
+</html>
